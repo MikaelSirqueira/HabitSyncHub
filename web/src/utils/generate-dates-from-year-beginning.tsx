@@ -6,7 +6,6 @@ export function generateDatesFromYearBeginning () {
 
     const dates = [];
     let compareDate = firstDayOfTheYear;
-    console.log('pega ', firstDayOfTheYear)
 
     while (compareDate.isBefore(today)) {
         dates.push(compareDate.toDate())
