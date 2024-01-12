@@ -14,25 +14,25 @@ const availableWeekDays = [
 ];
 
 export function NewHabitForm() {
-  const [title, setTitle] = useState('')
-  const [weekDays, setWeekDays] = useState<number[]>([])
+  const [title, setTitle] = useState("");
+  const [weekDays, setWeekDays] = useState<number[]>([]);
 
   async function createNewHabit(event: FormEvent) {
-    event.preventDefault()
+    event.preventDefault();
 
     if (!title || weekDays.length === 0) {
-      return
+      return;
     }
 
-    await api.post('habits', {
+    await api.post("habits", {
       title,
       weekDays,
-    })
+    });
 
-    setTitle('');
+    setTitle("");
     setWeekDays([]);
 
-    alert('Hábito criado com sucesso!');
+    alert("Hábito criado com sucesso!");
   }
 
   function handleTitleChange(event: ChangeEvent<HTMLInputElement>) {
@@ -41,13 +41,13 @@ export function NewHabitForm() {
 
   function handleToggleWeekDay(weekDay: number) {
     if (weekDays.includes(weekDay)) {
-      const weekDaysWithRemovedOne = weekDays.filter(day => day !== weekDay) 
+      const weekDaysWithRemovedOne = weekDays.filter((day) => day !== weekDay);
 
-      setWeekDays(weekDaysWithRemovedOne)
+      setWeekDays(weekDaysWithRemovedOne);
     } else {
-      const weekDaysWithAddedOne = [... weekDays, weekDay]
+      const weekDaysWithAddedOne = [...weekDays, weekDay];
 
-      setWeekDays(weekDaysWithAddedOne)
+      setWeekDays(weekDaysWithAddedOne);
     }
   }
 
@@ -62,7 +62,9 @@ export function NewHabitForm() {
         id="title"
         placeholder="ex.:Exercícios, dormir bem, etc.."
         autoFocus
-        className="p-4 rounded-lg mt-3 bg-zinc-800 text-white placeholder:text-zinc-400"
+        className="
+          p-4 rounded-lg mt-3 bg-zinc-800 text-white placeholder:text-zinc-400
+          focus:outline-none focus:ring-2 focus:ring-violet-600 focus:ring-offset-2 focus:ring-offset-zinc-900"
         value={title}
         onChange={handleTitleChange}
       />
@@ -74,17 +76,21 @@ export function NewHabitForm() {
       <div className="flex flex-col gap-2 mt-3">
         {availableWeekDays.map((weekDay, index) => {
           return (
-            <Checkbox.Root 
-              key={weekDay} 
-              className="flex items-center gap-3 group"
+            <Checkbox.Root
+              key={weekDay}
+              className="flex items-center gap-3 group focus:outline-none"
               checked={weekDays.includes(index)}
-              onCheckedChange={() => { handleToggleWeekDay(index) }}
+              onCheckedChange={() => {
+                handleToggleWeekDay(index);
+              }}
             >
               <div
                 className="
-                h-8 w-8 rounded-lg flex items-center justify-center
-              bg-zinc-900 border 2 border-zinc-800 group-data-[state=checked]:bg-green-500
-              group-data-[state=checked]:border-green-500"
+                  h-8 w-8 rounded-lg flex items-center justify-center
+                  bg-zinc-900 border 2 border-zinc-800 group-data-[state=checked]:bg-green-500
+                  group-data-[state=checked]:border-green-500 transition-colors
+                  group-focus:ring-2 group-focus:ring-violet-600 group-focus:ring-offset-2 group-focus:ring-offset-background
+                "
               >
                 <Checkbox.Indicator>
                   <Check size={20} className="text-white" />
@@ -99,7 +105,10 @@ export function NewHabitForm() {
 
       <button
         type="submit"
-        className="mt-6 rounded-lg p-4 flex items-center justify-center gap-3 font-semibold bg-green-600 hover:bg-green-500"
+        className="
+          mt-6 rounded-lg p-4 flex items-center justify-center gap-3 font-semibold bg-green-600 hover:bg-green-500 transition-colors
+          focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-zinc-900
+        "
       >
         <Check size={20} weight="bold" />
         Confirmar

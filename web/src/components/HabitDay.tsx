@@ -11,16 +11,20 @@ interface HabitDayProps {
   amount?: number;
 }
 
-export function HabitDay({ defaultCompleted = 0, amount = 0, date }: HabitDayProps) {
+export function HabitDay({
+  defaultCompleted = 0,
+  amount = 0,
+  date,
+}: HabitDayProps) {
   const [completed, setCompleted] = useState(defaultCompleted);
-  
+
   const completedPercentage =
     amount > 0 ? Math.round((completed / amount) * 100) : 0;
 
   const dayAndMonth = dayjs(date).format("DD/MM");
   const dayOfWeek = dayjs(date).format("dddd");
 
-  function handleCompletedChange(completed : number) {
+  function handleCompletedChange(completed: number) {
     setCompleted(completed);
   }
 
@@ -28,7 +32,7 @@ export function HabitDay({ defaultCompleted = 0, amount = 0, date }: HabitDayPro
     <Popover.Root>
       <Popover.Trigger
         className={clsx(
-          "w-10 h-10 bg-zinc-900 border-2 border-zinc-800 rounded-lg",
+          "w-10 h-10 bg-zinc-900 border-2 border-zinc-800 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-violet-600 focus:ring-offset-2 focus:ring-offset-background",
           {
             "bg-zinc-900 border-zinc-800": completedPercentage === 0,
             "bg-violet-900 border-violet-700":
